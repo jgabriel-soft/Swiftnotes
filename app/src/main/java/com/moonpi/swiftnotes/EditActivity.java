@@ -1,6 +1,7 @@
 package com.moonpi.swiftnotes;
 
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -17,12 +18,17 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.Toast;
 
 import com.moonpi.swiftnotes.ColorPicker.ColorPickerDialog;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
 
 import static com.moonpi.swiftnotes.ColorPicker.ColorPickerSwatch.OnColorSelectedListener;
 import static com.moonpi.swiftnotes.ColorPicker.ColorPickerSwatch.OnTouchListener;
@@ -60,10 +66,13 @@ public class EditActivity extends AppCompatActivity implements Toolbar.OnMenuIte
     private AlertDialog fontDialog, saveChangesDialog;
     private ColorPickerDialog colorPickerDialog;
 
+    private Calendar myCalendar = Calendar.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
 
         // Android version >= 18 -> set orientation fullUser
         if (Build.VERSION.SDK_INT >= 18)
@@ -92,6 +101,14 @@ public class EditActivity extends AppCompatActivity implements Toolbar.OnMenuIte
         dateEdit = findViewById(R.id.dateEdit);
         relativeLayoutEdit = (RelativeLayout)findViewById(R.id.relativeLayoutEdit);
         ScrollView scrollView = (ScrollView)findViewById(R.id.scrollView);
+
+        dateEdit.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (v.equals(dateEdit) && hasFocus)
+                    new DatePickerDialog(EditActivity.this, date, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+            }
+        });
 
         imm = (InputMethodManager) this.getSystemService(INPUT_METHOD_SERVICE);
 
@@ -448,5 +465,21 @@ public class EditActivity extends AppCompatActivity implements Toolbar.OnMenuIte
             saveChangesDialog.dismiss();
 
         super.onConfigurationChanged(newConfig);
+    }
+
+    DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
+        @Override
+        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+            myCalendar.set(Calendar.YEAR, year);
+            myCalendar.set(Calendar.MONTH, monthOfYear);
+            myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+            updateLabel();
+        }
+    };
+
+    private void updateLabel() {
+        String myFormat = "dd/MM/yyyy";
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, new Locale("pt","BR"));
+        dateEdit.setText(sdf.format(myCalendar.getTime()));
     }
 }
