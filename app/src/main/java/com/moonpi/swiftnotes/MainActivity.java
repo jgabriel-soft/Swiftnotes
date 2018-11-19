@@ -38,6 +38,7 @@ import static com.moonpi.swiftnotes.DataUtils.NEW_NOTE_REQUEST;
 import static com.moonpi.swiftnotes.DataUtils.NOTES_FILE_NAME;
 import static com.moonpi.swiftnotes.DataUtils.NOTE_BODY;
 import static com.moonpi.swiftnotes.DataUtils.NOTE_COLOUR;
+import static com.moonpi.swiftnotes.DataUtils.NOTE_DATE;
 import static com.moonpi.swiftnotes.DataUtils.NOTE_FAVOURED;
 import static com.moonpi.swiftnotes.DataUtils.NOTE_FONT_SIZE;
 import static com.moonpi.swiftnotes.DataUtils.NOTE_HIDE_BODY;
@@ -766,6 +767,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                         newNoteObject = new JSONObject();
                         newNoteObject.put(NOTE_TITLE, mBundle.getString(NOTE_TITLE));
                         newNoteObject.put(NOTE_BODY, mBundle.getString(NOTE_BODY));
+                        newNoteObject.put(NOTE_DATE, mBundle.getString(NOTE_DATE));
                         newNoteObject.put(NOTE_COLOUR, mBundle.getString(NOTE_COLOUR));
                         newNoteObject.put(NOTE_FAVOURED, false);
                         newNoteObject.put(NOTE_FONT_SIZE, mBundle.getInt(NOTE_FONT_SIZE));

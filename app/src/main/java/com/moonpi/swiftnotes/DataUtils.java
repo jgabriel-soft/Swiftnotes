@@ -45,6 +45,7 @@ class DataUtils {
     static final String NOTE_REQUEST_CODE = "requestCode";
     static final String NOTE_TITLE = "title";
     static final String NOTE_BODY = "body";
+    static final String NOTE_DATE = "date";
     static final String NOTE_COLOUR = "colour";
     static final String NOTE_FAVOURED = "favoured";
     static final String NOTE_FONT_SIZE = "fontSize";

@@ -29,6 +29,7 @@ import static com.moonpi.swiftnotes.ColorPicker.ColorPickerSwatch.OnTouchListene
 import static com.moonpi.swiftnotes.DataUtils.NEW_NOTE_REQUEST;
 import static com.moonpi.swiftnotes.DataUtils.NOTE_BODY;
 import static com.moonpi.swiftnotes.DataUtils.NOTE_COLOUR;
+import static com.moonpi.swiftnotes.DataUtils.NOTE_DATE;
 import static com.moonpi.swiftnotes.DataUtils.NOTE_FONT_SIZE;
 import static com.moonpi.swiftnotes.DataUtils.NOTE_HIDE_BODY;
 import static com.moonpi.swiftnotes.DataUtils.NOTE_REQUEST_CODE;
@@ -38,7 +39,7 @@ import static com.moonpi.swiftnotes.DataUtils.NOTE_TITLE;
 public class EditActivity extends AppCompatActivity implements Toolbar.OnMenuItemClickListener {
 
     // Layout components
-    private EditText titleEdit, bodyEdit;
+    private EditText titleEdit, bodyEdit, dateEdit;
     private RelativeLayout relativeLayoutEdit;
     private Toolbar toolbar;
     private MenuItem menuHideBody;
@@ -88,6 +89,7 @@ public class EditActivity extends AppCompatActivity implements Toolbar.OnMenuIte
         toolbar = (Toolbar)findViewById(R.id.toolbarEdit);
         titleEdit = (EditText)findViewById(R.id.titleEdit);
         bodyEdit = (EditText)findViewById(R.id.bodyEdit);
+        dateEdit = findViewById(R.id.dateEdit);
         relativeLayoutEdit = (RelativeLayout)findViewById(R.id.relativeLayoutEdit);
         ScrollView scrollView = (ScrollView)findViewById(R.id.scrollView);
 
@@ -127,6 +129,7 @@ public class EditActivity extends AppCompatActivity implements Toolbar.OnMenuIte
                 titleEdit.setText(bundle.getString(NOTE_TITLE));
                 bodyEdit.setText(bundle.getString(NOTE_BODY));
                 bodyEdit.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
+                dateEdit.setText(bundle.getString(NOTE_DATE));
 
                 if (hideBody)
                     menuHideBody.setTitle(R.string.action_show_body);
@@ -338,6 +341,7 @@ public class EditActivity extends AppCompatActivity implements Toolbar.OnMenuIte
         // Package everything and send back to activity with OK
         intent.putExtra(NOTE_TITLE, titleEdit.getText().toString());
         intent.putExtra(NOTE_BODY, bodyEdit.getText().toString());
+        intent.putExtra(NOTE_DATE, dateEdit.getText().toString());
         intent.putExtra(NOTE_COLOUR, colour);
         intent.putExtra(NOTE_FONT_SIZE, fontSize);
         intent.putExtra(NOTE_HIDE_BODY, hideBody);
@@ -367,9 +371,10 @@ public class EditActivity extends AppCompatActivity implements Toolbar.OnMenuIte
              *  If yes -> saveChanges
              *  If not -> hide keyboard if showing and finish
              */
-            if (!isEmpty(titleEdit) || !isEmpty(bodyEdit)) {
+            if (!isEmpty(titleEdit) || !isEmpty(bodyEdit) || !isEmpty(dateEdit)) {
                 if (!(titleEdit.getText().toString().equals(bundle.getString(NOTE_TITLE))) ||
                     !(bodyEdit.getText().toString().equals(bundle.getString(NOTE_BODY))) ||
+                    !(dateEdit.getText().toString().equals(bundle.getString(NOTE_DATE))) ||
                     !(colour.equals(bundle.getString(NOTE_COLOUR))) ||
                     fontSize != bundle.getInt(NOTE_FONT_SIZE) ||
                     hideBody != bundle.getBoolean(NOTE_HIDE_BODY)) {

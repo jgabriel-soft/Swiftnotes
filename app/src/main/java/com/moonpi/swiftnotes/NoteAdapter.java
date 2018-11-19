@@ -79,6 +79,7 @@ class NoteAdapter extends BaseAdapter implements ListAdapter {
         LayerDrawable roundedCard = (LayerDrawable) context.getResources().getDrawable(R.drawable.rounded_card);
         TextView titleView = (TextView) convertView.findViewById(R.id.titleView);
         TextView bodyView = (TextView) convertView.findViewById(R.id.bodyView);
+        TextView dateView = (TextView) convertView.findViewById(R.id.dateView);
         ImageButton favourite = (ImageButton) convertView.findViewById(R.id.favourite);
 
         // Get Note object at position
@@ -88,6 +89,7 @@ class NoteAdapter extends BaseAdapter implements ListAdapter {
             // If noteObject not empty -> initialize variables
             String title = context.getString(R.string.note_title);
             String body = context.getString(R.string.note_body);
+            String date = "";
             String colour = String.valueOf(context.getResources().getColor(R.color.white));
             int fontSize = 18;
             Boolean hideBody = false;
@@ -98,6 +100,7 @@ class NoteAdapter extends BaseAdapter implements ListAdapter {
                 title = noteObject.getString(NOTE_TITLE);
                 body = noteObject.getString(NOTE_BODY);
                 colour = noteObject.getString(NOTE_COLOUR);
+                date = noteObject.getString(NOTE_DATE);
 
                 if (noteObject.has(NOTE_FONT_SIZE))
                     fontSize = noteObject.getInt(NOTE_FONT_SIZE);
@@ -130,14 +133,19 @@ class NoteAdapter extends BaseAdapter implements ListAdapter {
             titleView.setText(title);
 
             // If hidBody is true -> hide body of note
-            if (hideBody)
+            if (hideBody) {
                 bodyView.setVisibility(View.GONE);
+                dateView.setVisibility(View.GONE);
+            }
 
             // Else -> set visible note body, text to normal and set text size to 'fontSize' as sp
             else {
                 bodyView.setVisibility(View.VISIBLE);
                 bodyView.setText(body);
                 bodyView.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
+                dateView.setVisibility(View.VISIBLE);
+                dateView.setText(date);
+                dateView.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
             }
 
             // If current note is selected for deletion -> highlight

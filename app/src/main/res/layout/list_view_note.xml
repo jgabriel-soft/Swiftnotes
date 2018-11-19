@@ -41,6 +41,26 @@
         android:textColor="@color/black_95"
         android:paddingBottom="8dp" />
 
+    <TextView
+        android:id="@+id/dateView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/bodyView"
+        android:layout_alignStart="@+id/titleView"
+        android:layout_alignLeft="@+id/titleView"
+        android:layout_alignEnd="@+id/titleView"
+        android:layout_alignRight="@+id/titleView"
+        android:layout_marginStart="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginRight="0dp"
+        android:maxLines="5"
+        android:paddingBottom="8dp"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/black_95"
+        android:textSize="14sp" />
+
     <ImageButton
         android:layout_width="35dp"
         android:layout_height="35dp"
